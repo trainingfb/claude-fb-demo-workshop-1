@@ -65,3 +65,35 @@ sei e incolla quello che vedi.
 Se non rispondo subito, salta al passo dopo e segnati dove ti sei arenato: in
 aula c'è tempo per riprenderlo, e sapere dove ti sei bloccato è già metà del
 lavoro.
+
+
+# Riassunto Requisiti
+
+Di seguito i requisiti per il workshop Claude della prossima settimana.
+
+1. Il partecipante deve utilizzare il proprio laptop con la possibilità di utilizzare i seguenti strumenti:
+
+```bash
+node -v          # 22 o superiore, megloi 
+npm -v           # 8 o superiore 
+claude --version # 2.1.280
+gh --version     # GitHub CLI 
+```
+
+Nel caso mancasse qualche tool:
+
+- Node e npm: installazione da (https://nodejs.org, versione LTS oppure usare Version Managers come NVM.
+- `claude`: `npm install -g @anthropic-ai/claude-code`, poi `claude` una volta per fare login 
+- `gh`: si puo scaricare da https://cli.github.com, e autenticazione tramite `gh auth login` 
+
+Dopo aver effettuato l'installazione riprovare i comandi precedenti.
+
+
+2. Il partecipante deve avere la possibilità di creare e forkare repository su GitHub.
+Quindi ogni studente dovrebbe avere un proprio account GitHub con cui poter avviare comandi come clone, push e PR.
+
+3. Dovrà installare pacchetti da NPM 
+
+4. Deve avere un editor / IDE installato, ad esempio Visual Studio Code o Antigravity
+
+5. Abbonamento (o simile) a Claude Code PRO: useremo modelli sonnet e opus
