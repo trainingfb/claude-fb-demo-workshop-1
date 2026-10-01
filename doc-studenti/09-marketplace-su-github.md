@@ -17,7 +17,7 @@ Un plugin è una cartella con skill e agenti dentro, e un **marketplace** è l'e
 
 ## Installa il plugin del workshop
 
-Nel repo `claude-fb-marketplace-demo-workshop` (https://github.com/trainingfb/claude-fb-workshop-claudepress), c'è un marketplace già pronto con un plugin, `git`, e due skill che valgono in qualunque repo:
+Nel repo `claude-fb-marketplace-demo-workshop` (https://github.com/trainingfb/claude-fb-workshop-claudepress), c'è un marketplace già pronto con un plugin, `git`, e due skill:
 
 | Skill | Cosa fa |
 |---|---|
@@ -59,7 +59,7 @@ Le skill di un plugin si chiamano come le tue: con una frase normale, oppure per
 * `/git:commit`
 * `/git:pr`.
 
-C'è sicuramente qualcosa da committare (verificalo con `git status`) e in caso contrario cambia qualche file (ad es. un testo o commento).
+C'è sicuramente qualcosa da committare (verificalo con `git status`) e in caso contrario cambia qualche file (ad es. un testo o aggiungi commento).
 
 Riavvia `claude` (oppure usa il comando `/reload-plugins`), poi:
 
