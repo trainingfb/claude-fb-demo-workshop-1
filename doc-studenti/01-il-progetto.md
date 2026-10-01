@@ -1,5 +1,3 @@
-DURATA: 5/10 MINUTI
-
 > **Passo 1 · 15 minuti · da solo**
 > ← [00 · Perché questo workshop](00-intro.md) · [indice](../README.md) · prossimo → [02 · Configurare il progetto](02-configurare-il-progetto.md)
 

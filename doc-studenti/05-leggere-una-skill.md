@@ -1,4 +1,3 @@
-DURATA: 15/20 min
 > **Passo 5 · 20 minuti · da solo**
 > ← [04 · Plan mode](04-plan-mode.md) · [indice](../README.md) · [06 · La tua skill](06-la-tua-skill.md) →
 

@@ -1,5 +1,3 @@
-DURATA: 10 minuti
-
 > **Passo 4 · 10 minuti · da solo**
 > ← [03 · Le regole](03-le-regole.md) · [indice](../README.md) · [05 · Leggere una skill](05-leggere-una-skill.md) →
 

@@ -1,5 +1,3 @@
-DURATA 10 MINUTI
-
 > **Passo 3 · 25 minuti · da solo**
 > ← [02 · Configurare il progetto](02-configurare-il-progetto.md) · [indice](../README.md) · [04 · Plan mode](04-plan-mode.md) →
 
