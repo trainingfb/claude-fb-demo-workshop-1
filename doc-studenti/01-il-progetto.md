@@ -11,18 +11,20 @@ Prima di lavorare sul progetto del workshop, ne crei uno tuo, vuoto, e ci fai fa
 
 ## Passo 1 · Cosa ti serve
 
-Tre comandi, e devono rispondere tutti e tre:
+Quattro comandi, e devono rispondere tutti e quattro:
 
 ```bash
 node -v          # 22 o superiore
 npm -v           # 8 o superiore 
 claude --version # 2.1.280
+gh --version     # GitHub CLI (serve nei prossimi workshop, per il fork e le PR)
 ```
 
 | Se manca | Cosa fare |
 |---|---|
 | Node | installalo da [nodejs.org](https://nodejs.org), versione LTS |
 | `claude` | `npm install -g @anthropic-ai/claude-code`, poi `claude` una volta per fare login |
+| `gh` | installalo da [cli.github.com](https://cli.github.com), poi `gh auth login` |
 
 Serve anche un editor — VS Code, Cursor, WebStorm, quello che usi.
 
@@ -30,6 +32,7 @@ Serve anche un editor — VS Code, Cursor, WebStorm, quello che usi.
 
 - [ ] `node -v` dice 22 o superiore
 - [ ] `claude --version` risponde 2.1.280
+- [ ] `gh --version` risponde (serve nei prossimi workshop)
 
 ---
 
