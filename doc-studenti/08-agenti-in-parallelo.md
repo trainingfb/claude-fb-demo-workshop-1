@@ -43,7 +43,7 @@ Poi, a Claude:
 **Prompt:**
 
 ```
-/check-convenzioni
+/check-conventions
 ```
 
 Un report tipico:
@@ -61,7 +61,7 @@ Quattro esiti possibili:
 
 - **Tutto verde, tutti e due in vetrina.** È l'esito più probabile, e non è fortuna: ogni agente ha riletto i file condivisi un attimo prima di scrivere. Ha funzionato perché erano due righe ciascuno.
 
-- **Uno dei due manca dalla vetrina, o `check-convenzioni` dice che gli manca una registrazione.** Due agenti hanno scritto lo stesso file nello stesso momento, e uno ha sovrascritto l'altro. Sistemalo con `/fix-conventions`, che è nato per questo.
+- **Uno dei due manca dalla vetrina, o `check-conventions` dice che gli manca una registrazione.** Due agenti hanno scritto lo stesso file nello stesso momento, e uno ha sovrascritto l'altro. Sistemalo con `/fix-conventions`, che è nato per questo.
 
 - **`npm run check` è rosso.** Stessa causa, in forma più rumorosa: un export doppio, un import rotto. Incolla l'errore a Claude e fallo sistemare.
 
@@ -73,7 +73,7 @@ Quattro esiti possibili:
   Tooltip non rispetta la regola in .claude/rules/ui.md: sistemalo. Non cambiare altro.
   ```
 
-  Poi `/check-convenzioni Tooltip` deve dire committabile.
+  Poi `/check-conventions Tooltip` deve dire committabile.
 
 Il punto non è quale esito hai avuto. È che i due lavori erano indipendenti **nel contenuto** ma non **nei file**: `src/components/index.ts`, `src/App.tsx` e `docs/componenti.md` li hanno toccati tutti e due. Due mani sullo stesso file, nello stesso momento, non possono sapere l'una dell'altra.
 
@@ -88,6 +88,6 @@ git add -A && git commit -m "feat: Avatar e Tooltip, in parallelo"
 ## Fatto
 
 - [ ] `Avatar` e `Tooltip` sono tutti e due in vetrina
-- [ ] `npm run check` passa e `check-convenzioni` dice committabile per tutti, `Avatar` e `Tooltip` compresi
+- [ ] `npm run check` passa e `check-conventions` dice committabile per tutti, `Avatar` e `Tooltip` compresi
 - [ ] sai quali sono i tre file che entrambi gli agenti hanno toccato
 - [ ] committato

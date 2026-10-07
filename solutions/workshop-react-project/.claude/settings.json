@@ -1,0 +1,37 @@
+{
+  "extraKnownMarketplaces": {
+    "claude-fb-marketplace-demo-workshop": {
+      "source": {
+        "source": "github",
+        "repo": "trainingfb/claude-fb-marketplace-demo-workshop"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "git@claude-fb-marketplace-demo-workshop": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/niente-dipendenze.mjs"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/lint-del-file.mjs"
+          }
+        ]
+      }
+    ]
+  }
+}

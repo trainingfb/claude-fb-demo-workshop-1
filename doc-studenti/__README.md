@@ -28,19 +28,19 @@ passo 1 lo verifica.
 
 | # | Passo | Durata | |
 |---|---|---|---|
-| 0 | Perché questo workshop | 3′ | [00-intro.md](esercizi/00-intro.md) |
-| 1 | Il progetto, e il primo prompt | 15′ | [01-il-progetto.md](esercizi/01-il-progetto.md) |
-| 2 | Configurare il progetto: il `CLAUDE.md` | 15′ | [02-configurare-il-progetto.md](esercizi/02-configurare-il-progetto.md) |
-| 3 | Le regole del progetto | 25′ | [03-le-regole.md](esercizi/03-le-regole.md) |
-| 4 | Pensare prima di scrivere | 10′ | [04-plan-mode.md](esercizi/04-plan-mode.md) |
-| 5 | Leggere una skill | 20′ | [05-leggere-una-skill.md](esercizi/05-leggere-una-skill.md) |
-| 6 | La tua prima skill | 15′ | [06-la-tua-skill.md](esercizi/06-la-tua-skill.md) |
-| 7 | Il tuo primo subagent | 20′ | [07-il-tuo-agente.md](esercizi/07-il-tuo-agente.md) |
-| 8 | Due agenti in parallelo | 10′ | [08-agenti-in-parallelo.md](esercizi/08-agenti-in-parallelo.md) |
-| 9 | Un plugin da GitHub | 10′ | [09-marketplace-su-github.md](esercizi/09-marketplace-su-github.md) |
-| 10 | Il tuo primo plugin | 15′ | [10-creare-plugin-e-marketplace-locale.md](esercizi/10-creare-plugin-e-marketplace-locale.md) |
-| 11 | Il plugin su GitHub (facoltativo) | 15′ | [11-plugin-su-github.md](esercizi/11-plugin-su-github.md) |
-| 12 | Un hook che non si può ignorare | 10′ | [12-gli-hook.md](esercizi/12-gli-hook.md) |
+| 0 | Perché questo workshop | 3′ | [00-intro.md](00-intro.md) |
+| 1 | Il progetto, e il primo prompt | 15′ | [01-il-progetto.md](01-il-progetto.md) |
+| 2 | Configurare il progetto: il `CLAUDE.md` | 15′ | [02-configurare-il-progetto.md](02-configurare-il-progetto.md) |
+| 3 | Le regole del progetto | 25′ | [03-le-regole.md](03-le-regole.md) |
+| 4 | Pensare prima di scrivere | 10′ | [04-plan-mode.md](04-plan-mode.md) |
+| 5 | La tua prima skill: `check-conventions` | 20′ | [05-la-tua-prima-skill-check-conventions.md](05-la-tua-prima-skill-check-conventions.md) |
+| 6 | La skill `fix-conventions` | 15′ | [06-la-skill-fix-conventions.md](06-la-skill-fix-conventions.md) |
+| 7 | Il tuo primo subagent | 20′ | [07-il-tuo-agente.md](07-il-tuo-agente.md) |
+| 8 | Due agenti in parallelo | 10′ | [08-agenti-in-parallelo.md](08-agenti-in-parallelo.md) |
+| 9 | Un plugin da GitHub | 10′ | [09-marketplace-su-github.md](09-marketplace-su-github.md) |
+| 10 | Il tuo primo plugin | 15′ | [10-creare-plugin-e-marketplace-locale.md](10-creare-plugin-e-marketplace-locale.md) |
+| 11 | Il plugin su GitHub (facoltativo) | 15′ | [11-plugin-su-github.md](11-plugin-su-github.md) |
+| 12 | Un hook che non si può ignorare | 10′ | [12-gli-hook.md](12-gli-hook.md) |
 
 Falli in ordine: ognuno dà per scontato quello che hai fatto nel precedente.
 

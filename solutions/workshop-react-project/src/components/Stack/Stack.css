@@ -1,0 +1,24 @@
+.ui-stack {
+  display: flex;
+}
+
+.ui-stack--row {
+  flex-direction: row;
+  align-items: center;
+}
+
+.ui-stack--column {
+  flex-direction: column;
+}
+
+.ui-stack--gap-sm {
+  gap: 0.5rem;
+}
+
+.ui-stack--gap-md {
+  gap: 1rem;
+}
+
+.ui-stack--gap-lg {
+  gap: 2rem;
+}

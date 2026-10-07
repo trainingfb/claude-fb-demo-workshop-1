@@ -1,5 +1,5 @@
 > **Passo 4 · 10 minuti · da solo**
-> ← [03 · Le regole](03-le-regole.md) · [indice](../README.md) · [05 · Leggere una skill](05-leggere-una-skill.md) →
+> ← [03 · Le regole](03-le-regole.md) · [indice](../README.md) · [05 · La tua prima skill: check-conventions](05-la-tua-prima-skill-check-conventions.md) →
 
 # Pensare prima di scrivere
 

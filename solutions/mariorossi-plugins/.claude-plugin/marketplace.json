@@ -1,0 +1,8 @@
+{
+  "name": "mariorossi-plugins",
+  "description": "I plugin di Mario Rossi.",
+  "owner": { "name": "Mario Rossi" },
+  "plugins": [
+    { "name": "dev-tools", "source": "./", "description": "Skill di utilità." }
+  ]
+}

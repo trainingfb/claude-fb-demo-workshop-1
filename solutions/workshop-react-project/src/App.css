@@ -1,0 +1,62 @@
+.vetrina {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.vetrina__header {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.vetrina__header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.vetrina__header p {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+}
+
+.vetrina__scheda {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.vetrina__scheda h2 {
+  margin: 0;
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+  color: #4338ca;
+}
+
+.vetrina__scheda p {
+  margin: 0.125rem 0 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.vetrina__esempio {
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+}
+
+/* Contenitori usati dai file .example.tsx */
+.vetrina-riga {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vetrina-colonna {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}

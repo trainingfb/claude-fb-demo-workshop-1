@@ -1,0 +1,32 @@
+.ui-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.ui-tooltip__tip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  background: #0f172a;
+  color: #fff;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.ui-tooltip__tip--top {
+  bottom: calc(100% + 0.375rem);
+}
+
+.ui-tooltip__tip--bottom {
+  top: calc(100% + 0.375rem);
+}
+
+.ui-tooltip:hover .ui-tooltip__tip,
+.ui-tooltip:focus-within .ui-tooltip__tip {
+  opacity: 1;
+}

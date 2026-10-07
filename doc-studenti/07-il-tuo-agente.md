@@ -1,11 +1,11 @@
 > **Passo 7 · 20 minuti · da solo**
-> ← [06 · La tua skill](06-la-tua-skill.md) · [indice](../README.md) · [08 · Agenti in parallelo](08-agenti-in-parallelo.md) →
+> ← [06 · La skill fix-conventions](06-la-skill-fix-conventions.md) · [indice](../README.md) · [08 · Agenti in parallelo](08-agenti-in-parallelo.md) →
 
 # Il tuo primo subagent
 
 Una skill è un insieme di istruzioni che entra nella **tua** sessione. Un subagent è qualcun altro: ha il suo contesto, fa il lavoro per conto suo, e ti riporta solo la conclusione.
 
-La differenza conta quando il lavoro richiede di **leggere molto**.
+La differenza conta quando il lavoro richiede di **leggere e/o analizzare molti contenuti**.
 
 ---
 
@@ -28,7 +28,7 @@ e riferisce in massimo quindici righe: una per componente, poi i problemi.
 Non sistema niente. Massimo trenta righe in tutto.
 ```
 
-Aprilo. Il frontmatter dovrebbe essere così:
+Aprilo (`.claude/agents/auditor.md`). Il frontmatter dovrebbe essere così:
 
 ```yaml
 name: auditor
@@ -45,9 +45,13 @@ Guarda `tools`: l'auditor **non ha Write né Edit**. Non è una raccomandazione 
 
 Riavvia `claude`, poi:
 
-> passa in rassegna tutta la libreria e dimmi com'è messa
+**Prompt**
 
-Ti torneranno quindici righe. Nel frattempo lui ha letto una quindicina di file, ma quei file **non sono finiti nel tuo contesto**: è arrivata solo la conclusione.
+```bash
+passa in rassegna tutta la libreria e dimmi com'è messa
+```
+
+Attendi un minutino.  Nel frattempo lui ha letto una quindicina di file, ma quei file **non sono finiti nel tuo contesto**: è arrivata solo la conclusione.
 
 È questo il motivo per cui esiste. Una skill che facesse la stessa cosa ti riempirebbe la sessione del contenuto di quei quindici file, e dopo tre giri saresti a corto di spazio.
 
@@ -64,7 +68,7 @@ La domanda da farsi è una sola: **mi serve vedere i passaggi, o solo la rispost
 
 ---
 
-## Adesso fanne uno tu
+## L'agente `stats`
 
 Crea `.claude/agents/stats.md`: un agente che misura il progetto e riporta i numeri in una tabella — quanti componenti, quante righe di codice, quanti commit, e simili.
 
