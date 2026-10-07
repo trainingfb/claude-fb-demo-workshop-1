@@ -231,7 +231,7 @@ Ho controllato tutti e quattro i componenti: tre sono a posto, a Callout mancano
   - Callout ⚠️  manca l'esempio, la registrazione in vetrina e la riga nella documentazione
 ```
 
-**IMPORTANTE: NON FIXARE I PROBLEMI**. Ne parliamo al prossimo step.
+> **IMPORTANTE: NON FIXARE I PROBLEMI**. Ne parliamo al prossimo step.
 
 
 ### Conclusione
