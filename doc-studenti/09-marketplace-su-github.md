@@ -15,16 +15,19 @@ Un plugin è una cartella con skill e agenti dentro, e un **marketplace** è l'e
 
 ---
 
-## Installa il plugin del workshop
+## Perchè sono utili
 
-Nel repo `claude-fb-marketplace-demo-workshop` (https://github.com/trainingfb/claude-fb-workshop-claudepress), c'è un marketplace già pronto con un plugin, `git`, e due skill:
+Nel repo `claude-fb-marketplace-demo-workshop` (https://github.com/trainingfb/claude-fb-workshop-claudepress), c'è un marketplace già pronto con un plugin, `git`, e due skill.
+
+Oggi hai digitato `git add -A && git commit -m "…"` una quindicina di volte. 
+Installiamo quindi due skills per git che ti faranno molto comodo: `commit` e `pr`.
 
 | Skill | Cosa fa |
 |---|---|
 | `commit` | lancia check, lint o test e si ferma se falliscono, scrive il messaggio leggendo il diff, committa |
 | `pr` | commit, push e pull request in draft, con una descrizione a quattro sezioni |
 
-Hai digitato `git add -A && git commit -m "…"` una quindicina di volte da stamattina: da qui in poi lo fa `commit`, e prima controlla che il progetto sia sano.
+## Installazione da MarketPlace
 
 Un marketplace su GitHub si aggiunge con l'URL del repo, o con la forma corta `utente/repo`. Nel terminale dei comandi:
 
@@ -34,9 +37,16 @@ claude plugin marketplace add trainingfb/claude-fb-marketplace-demo-workshop --s
 claude plugin install git@claude-fb-marketplace-demo-workshop --scope project
 ```
 
+
 `--scope project` lo installa **per questo progetto**, e lo scrive in `.claude/settings.json`: un file che si committa. Chi clona il repo si ritrova il plugin senza fare niente — è quello che vuoi in un team, ed è il motivo per cui in aula funzionerà per tutti e tre. Senza `--scope`, il default è `user`: vale per te su tutti i progetti, e non arriva a nessun altro.
 
 Il secondo comando si legge «il plugin `git` dal marketplace `claude-fb-marketplace-demo-workshop`». Sono i `name` scritti nei JSON del mio repo, non i nomi delle cartelle. Qui il marketplace si chiama come il repo su GitHub, ma è una scelta mia, non una regola: quello che scrivi dopo la `@` è sempre il `name` del `marketplace.json`.
+
+Al termine del secondo comando dovresti ricevere un messaggio simile:
+
+```bash
+✔ Successfully installed plugin: git@claude-fb-marketplace-demo-workshop (scope: project)
+```
 
 Per controllare che sia andata:
 
@@ -44,18 +54,30 @@ Per controllare che sia andata:
 claude plugin list
 ```
 
-Deve mostrare `git@claude-fb-marketplace-demo-workshop`, con `Scope: project`. La lista non ha un filtro suo, e se hai già molti plugin è lunga: passala a `grep`, che tiene la riga trovata e le tre sotto (versione, scope, stato):
+Deve mostrare `git@claude-fb-marketplace-demo-workshop`, con `Scope: project`. 
+Tuttavia potresti avere molti plugin e, a volte, non è facile indviduarlo.
+
+La lista non ha un filtro suo, quindi usiama il comando `grep`, per trovare la riga che ci interessa e le 3 successive.
 
 ```bash
 claude plugin list | grep -A3 "git@"                # nome intero del plugin
+# oppure
 claude plugin list | grep -iA3 "demo-workshop"      # un pezzo del nome, maiuscole ignorate
 ```
 
+Se è installato correttamente dovresti vedere un output simile:
+
+```bash
+❯ git@claude-fb-marketplace-demo-workshop
+  Version: 1.0.0
+  Scope: project
+  Status: ✔ enabled
+```
 ---
 
 ## Usalo
 
-Le skill di un plugin si chiamano come le tue: con una frase normale, oppure per nome con il prefisso del plugin 
+Le skill di un plugin si invocano come quelle create da te: con una frase normale, oppure per nome con il prefisso del plugin 
 * `/git:commit`
 * `/git:pr`.
 
@@ -71,12 +93,20 @@ Riavvia `claude` (oppure usa il comando `/reload-plugins`), poi:
 
 Guarda cosa fa prima di committare: lancia `npm run check`, legge il diff, scrive il messaggio. Se il check fallisce si ferma, e ti dice perché.
 
+
 Il comando `/git:pr` crea una pull request con un certo template.
 Lo userai nel workshop successivo.
+
+
+> Puoi vedere il source code del marketplace e le skills `commit` e `pr` [dal repository](https://github.com/trainingfb/claude-fb-marketplace-demo-workshop)
+
 
 ---
 
 # Tips
+
+Hai concluso questa sezione ma di seguito alcuni consigli che potrebbero esserti utili:
+
 
 ## Disinstallare plugin e rimuovere il marketplace
 

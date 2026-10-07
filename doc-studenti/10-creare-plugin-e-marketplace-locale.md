@@ -3,9 +3,13 @@
 
 # Il tuo primo plugin
 
-Al passo 9 hai installato un plugin mio. Adesso ne fai uno tuo: lo costruisci, lo installi sul tuo computer, lo provi in un altro progetto. Metterlo su GitHub, come ho fatto io con il mio, è il passo dopo.
+Nella sezione precedente hai installato un plugin creato da me (Fabio Biondi). 
 
-Dentro ci va una skill nuova, `folder-info`, che misura una cartella qualsiasi. Non una di quelle del progetto: `new-component`, `check-conventions` e `fix-conventions` parlano di `src/components/` e dei cinque file, e fuori da questa libreria non vogliono dire niente. **In un plugin ci va quello che vale ovunque**; il resto sta bene dov'è, in `.claude/skills/`.
+Adesso ne fai uno tuo: lo costruisci, lo installi sul tuo computer, lo provi in un altro progetto. Metterlo su GitHub, come ho fatto io con il mio, è il passo dopo.
+
+Dentro ci va una skill nuova, `folder-info`, che analizza e fornisce un report di una cartella qualsiasi. Non una di quelle del progetto: infatti `new-component`, `check-conventions` e `fix-conventions` parlano di `src/components/` e dei cinque file, e fuori da questa libreria non vogliono dire niente. 
+
+**In un plugin ci va quello che può funzionare ovunque**; le skills specifichedi un progetto restano invece dove sono, in `.claude/skills/`.
 
 ---
 

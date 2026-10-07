@@ -35,12 +35,15 @@ Dopo puoi verificare con gli strumenti che hai costruito:
 Apri la vetrina nel browser (http://localhost:5173): `Avatar` e `Tooltip` devono esserci tutti e due.
 
 2. **Controllo automatico**
+Dal terminale:
 
 ```bash
 npm run check
 ```
 
-3. Poi, a Claude:
+3. **Controllo con la tua skill**
+
+Poi, a Claude:
 
 **Prompt:**
 
@@ -79,7 +82,12 @@ Quattro esiti possibili:
 
 Il punto non è quale esito hai avuto. È che i due lavori erano indipendenti **nel contenuto** ma non **nei file**: `src/components/index.ts`, `src/App.tsx` e `docs/componenti.md` li hanno toccati tutti e due. Due mani sullo stesso file, nello stesso momento, non possono sapere l'una dell'altra.
 
-Quando è tutto a posto:
+Quando è tutto a posto.
+
+
+1. Chiedi a Claude di rimuovere i branch / worktree che non servono più (creati dagli agenti in background)
+
+2. Committa
 
 ```bash
 git add -A && git commit -m "feat: Avatar e Tooltip, in parallelo"
