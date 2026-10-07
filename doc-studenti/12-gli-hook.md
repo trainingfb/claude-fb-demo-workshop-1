@@ -117,9 +117,10 @@ Claude prova `npm install clsx`, il comando non parte, e Claude riceve il messag
 
 # PostToolUse
 
-## 4. Se vuoi: il linter su ogni file toccato
+## 4. Utilizzare l linter su ogni file modificato
 
-L'altro uso tipico è silenzioso: non blocca, fa. Dopo ogni modifica lancia il linter sul file toccato. Se è pulito, niente. Se no, l'errore arriva a Claude subito, e lo sistema al volo invece che alla fine con `npm run check`.
+L'altro uso tipico è silenzioso: non blocca, ma agisce. 
+Dopo ogni modifica lancia il linter sul file modificato. Se è pulito, niente. Se no, l'errore arriva a Claude subito, e lo sistema al volo invece che alla fine con `npm run check`.
 
 Script `.claude/hooks/lint-del-file.mjs`. Rispetto al primo ha una riga in più, e conta: **scrive una traccia in un file di log** a ogni esecuzione. Un hook che non blocca non si vede, e senza una traccia non sai mai se è partito.
 
@@ -145,7 +146,7 @@ console.error(esito.stdout + esito.stderr);
 process.exit(2);
 ```
 
-Il log non va committato: aggiungi `.claude/hooks/hook.log` al `.gitignore`.
+Il log non va committato: aggiungi `.claude/hooks/hook.log` al `.gitignore` (se non hai il file `.gitignore`, crealo e mettilo in root del progetto marketplace)
 
 **Prova Manuale**
 Puoi anche provarlo a mano come il primo, passandogli un file vero:
@@ -153,12 +154,15 @@ Puoi anche provarlo a mano come il primo, passandogli un file vero:
 ```bash
 # Un file pulito: nessun output, esce con 0, e nel log compare una riga.
 echo '{"tool_input":{"file_path":"src/components/Badge/Badge.tsx"}}' | CLAUDE_PROJECT_DIR=. node .claude/hooks/lint-del-file.mjs; echo $?
+
+# Guarda il contenuto del log
 cat .claude/hooks/hook.log
 ```
 
 Poi registralo in `settings.json`, dentro `hooks`, accanto a `PreToolUse`:
 
 ```json
+// ...
 "PostToolUse": [
   {
     "matcher": "Edit|Write",
@@ -180,17 +184,18 @@ Riavvia `claude` e provalo con una modifica che il linter non accetta:
 Aggiungi in cima a src/components/Badge/Badge.tsx una costante DEBUG = true, senza usarla.
 ```
 
-Claude ti risponderà qualcosa — che l'ha aggiunta, che il check non passa, che la toglie. **Quel testo non ti dice se l'hook è partito.** Lo dice il log:
+Claude ti risponderà qualcosa: che l'ha aggiunta, che il check non passa, che la toglie. **Quel testo non ti dice se l'hook è partito.** Lo dice il log:
 
 ```bash
 cat .claude/hooks/hook.log
 ```
 
-Se c'è una riga nuova con `Badge.tsx → 2`, l'hook è scattato subito dopo la modifica e ha passato a Claude l'avviso di oxlint. Spesso lo dice anche Claude — «dopo la modifica è scattato l'hook di lint e ha dato questo avviso: …», con il messaggio del linter riportato pari pari — ed è un buon segno, ma la conferma resta il log. Che poi lasci la costante o la tolga dipende da come glielo chiedi: qui gliel'hai chiesta non usata, quindi la lascia e ti spiega perché. Se l'ultima riga è ancora quella del test a mano, l'hook non è partito: controlla `/hooks`, e che `settings.json` sia un JSON valido.
+Se c'è una riga nuova con `Badge.tsx → 2`, l'hook è scattato subito dopo la modifica e ha passato a Claude l'avviso di oxlint. Spesso lo dice anche Claude — «dopo la modifica è scattato l'hook di lint e ha dato questo avviso: …», con il messaggio del linter riportato pari pari — ed è un buon segno, ma la conferma resta il log. Che poi lasci la costante o la tolga dipende da come glielo chiedi: qui gli hai chiesto di non usarla, quindi la lascia e ti spiega perché. 
+Se l'ultima riga del log è ancora quella del test a mano, l'hook non è partito: controlla `/hooks`, e che `settings.json` sia un JSON valido.
 
-Alla fine rimetti a posto `Badge.tsx` — `git checkout src/components/Badge/Badge.tsx` — e committa hook e `settings.json`.
+Alla fine rimetti a posto `Badge.tsx` con `git checkout src/components/Badge/Badge.tsx` e committa tutto: hook e `settings.json`.
 
-`PostToolUse` arriva a modifica già fatta: può segnalare, non impedire. Per impedire serve `PreToolUse`.
+> `PostToolUse` arriva a modifica già fatta: può segnalare, non impedire. Per impedire serve `PreToolUse`.
 
 ## Fatto
 
@@ -215,4 +220,4 @@ Se la frase comincia con «Claude non deve mai», è un hook. Se comincia con «
 
 ## Hai finito
 
-Il percorso è chiuso. Porta in aula il portatile con questo progetto e il plugin del passo 9 installato: in aula si parte da lì, e non si rispiega niente di quello che c'è qui.
+Bravo. Il percorso è terminato!
