@@ -5,11 +5,13 @@
 
 Nella sezione precedente hai installato un plugin creato da me (Fabio Biondi). 
 
-Adesso ne fai uno tuo: lo costruisci, lo installi sul tuo computer, lo provi in un altro progetto. Metterlo su GitHub, come ho fatto io con il mio, è il passo dopo.
+Adesso ne fai uno tuo: lo costruisci, lo installi sul tuo computer, lo provi in un altro progetto.
 
-Dentro ci va una skill nuova, `folder-info`, che analizza e fornisce un report di una cartella qualsiasi. Non una di quelle del progetto: infatti `new-component`, `check-conventions` e `fix-conventions` parlano di `src/components/` e dei cinque file, e fuori da questa libreria non vogliono dire niente. 
+Metterlo su GitHub, come ho fatto io con il mio, è il passo dopo.
 
-**In un plugin ci va quello che può funzionare ovunque**; le skills specifichedi un progetto restano invece dove sono, in `.claude/skills/`.
+Dentro ci va una skill nuova, `folder-info`, che analizza e fornisce un report di una cartella qualsiasi. 
+
+**In un plugin ci va quello che può funzionare ovunque**; le skills specifiche di un progetto restano invece dove le hai messe in precedenza, in `.claude/skills/`.
 
 ---
 
@@ -18,15 +20,16 @@ Dentro ci va una skill nuova, `folder-info`, che analizza e fornisce un report d
 Un plugin è una cartella: due file di configurazione, e dentro le skill che vuoi portarti dietro. **Non va dentro `hello-workshop`**: non è codice di quel progetto, è roba tua che vale ovunque. Mettiti nella cartella che contiene `hello-workshop` — quella dove tieni i progetti — e crea lì, accanto, questa struttura:
 
 
-Non devi creare cartelle dentro `hello-workshop`, altrimenti poi `git:commit` le prende. La struttura che ti ho dato è pensata per stare fuori da qualunque repo di codice: in questo esercizio la consideriamo così.
-Quindi crea una nuova cartella `mariorossi-plugins` altrove, cosi strutturata:
+Non devi creare cartelle dentro `hello-workshop`. 
+La struttura che creeremo è pensata per stare fuori da qualunque repo di codice: in questo esercizio la consideriamo così.
+Quindi crea una nuova cartella `mariorossi-plugins` altrove ( ti consiglio di posizionarla adiancente al progetto creato in precedenza, cosi da averla sotto mano), cosi strutturata:
 
 > TIP: puoi utilizzare il tuo nome invece di `mariorossi`
 
 ```
 mariorossi-plugins/
 ├── .claude-plugin/
-│   ├── plugin.json           ← come si chiama il plugin
+│   ├── plugin.json           ← info sul plugin
 │   └── marketplace.json      ← l'elenco da cui si installa
 └── skills/
     └── folder-info/
@@ -59,16 +62,24 @@ Tre file da scrivere. Sostituisci `mariorossi` con il tuo utente GitHub e `Mario
 }
 ```
 
-Tieni a mente i due nomi, perché tra poco li usi insieme come al passo 9: **`dev-tools`** è il plugin, **`mariorossi-plugins`** è il marketplace. La cartella si chiama come il marketplace, e al punto 5 diventerà anche il nome del repo, `mariorossi/mariorossi-plugins`: un nome solo per tre cose, e dice subito di chi è.
+Tieni a mente i due nomi, perché tra poco li usi insieme come nella lezione precedente: 
+* **`dev-tools`** è il plugin
 
-**`mariorossi-plugins/skills/folder-info/SKILL.md`** — la skill. Copiala così com'è:
+* **`mariorossi-plugins`** è il marketplace. 
+La cartella si chiama come il marketplace, e al punto 5 diventerà anche il nome del repo, `mariorossi/mariorossi-plugins`: un nome solo per tre cose, e dice subito di chi è.
 
-INIZIO SKILL:
+
+## La skill `folder-info`:
+
+Creiamo ora la skill.
+
+Copiala la seguente skill così com'è, all'interno di `mariorossi-plugins/skills/folder-info/SKILL.md`:
+
 
 ````md
 ---
 name: folder-info
-description: Misura una cartella e riporta quanti file ci sono per tipo, quanto pesano, e quali sono i più grandi e i più recenti. Usala per capire com'è fatto un progetto che non conosci. Trigger: info sulla cartella, quanti file ci sono, quanto pesa il progetto, com'è fatta questa cartella, folder info.
+description: Analizza una cartella e riporta quanti file ci sono per tipo, quanto pesano, e quali sono i più grandi e i più recenti. Usala per capire com'è fatto un progetto che non conosci. Trigger: info sulla cartella, quanti file ci sono, quanto pesa il progetto, com'è fatta questa cartella, folder info.
 allowed-tools: Bash(find:*), Bash(du:*), Bash(wc:*), Bash(ls:*), Bash(sort:*), Bash(awk:*), Bash(sed:*), Bash(xargs:*), Bash(head:*), Bash(uniq:*)
 ---
 
@@ -104,12 +115,11 @@ Poi tre righe: `Totale: N file, M cartelle, X KB`, i cinque più grandi
 (percorso e KB), i cinque più recenti (percorso e data).
 ````
 
-FINE SKILL
 
 
 
 
-Leggila prima di andare avanti: ha la stessa forma delle skill dei passi 5 e 6 — `description` con i trigger, `$ARGUMENTS` con il caso vuoto, cosa non fare, output fisso. La differenza è che non nomina nessun file di questo progetto: per questo può vivere in un plugin.
+Leggila prima di andare avanti: ha la stessa forma delle skill delle lezioni precedenti: `description` con i trigger, `$ARGUMENTS` con il caso vuoto, cosa non fare, output fisso. La differenza è che non nomina nessun file di questo progetto: per questo può vivere in un plugin.
 
 ## 2. Controlla che sia valido
 
@@ -125,17 +135,18 @@ Deve dire **Validation passed**. Se dice altro, ti indica il file e il campo sba
 
 ## 3. Installalo
 
-Gli stessi due comandi del passo 9, ma il marketplace è una cartella locale invece di un repo. Qui senza `--scope project`: un marketplace che punta a una cartella del tuo disco non ha senso committato per gli altri.
+Al contrario della lezione in cui installavi plugin da un marketplace su GitHub, adesso il marketplace è una cartella locale del tuo PC.
 
-Sempre dalla stessa cartella parent installa il plugin globalmente (user):
+Sempre dalla stessa cartella parent installa il plugin globalmente (user), quindi sarà utilizzabile in qualunque tuo progetto:
 
 ```bash
-claude plugin marketplace add ./mariorossi-plugins     # add marketplace
-claude plugin install dev-tools@mariorossi-plugins   # install tools
-claude plugin list | grep -A3 "dev-tools@".       # verifica che sia visible
+claude plugin marketplace add ./mariorossi-plugins    # add marketplace
+claude plugin install dev-tools@mariorossi-plugins    # install tools
+claude plugin list | grep -A3 "dev-tools@".           # verifica che sia visible
 ```
 
-> NON FARLO: **Per toglierlo**, nell'ordine inverso — prima il plugin, poi il marketplace. Ti serve se sbagli un nome e vuoi ripartire pulito, o al punto 5 quando passi alla versione su GitHub:
+> TIP: non è necessario fare questo step ma è solo per conoscenza:
+> **Per disinstallare** tutto procedi nell'ordine inverso: prima il plugin, poi il marketplace. Ti serve se sbagli un nome e vuoi ripartire pulito, o al punto 5 quando passi alla versione su GitHub:
 >
 > ```bash
 > claude plugin uninstall dev-tools@mariorossi-plugins
@@ -144,7 +155,9 @@ claude plugin list | grep -A3 "dev-tools@".       # verifica che sia visible
 
 ## 4. Provalo in un progetto
 
-Il plugin è installato a livello utente, quindi vale in qualunque cartella. Torna in `hello-workshop`, riavvia `claude` (le skill si caricano all'avvio), e chiedi con una frase normale:
+Il plugin è installato a livello utente, quindi funziona in qualunque cartella. 
+
+Torna in `hello-workshop`, riavvia `claude` (le skill si caricano all'avvio), e chiedi con una frase normale:
 
 **Prompt:**
 
@@ -152,7 +165,17 @@ Il plugin è installato a livello utente, quindi vale in qualunque cartella. Tor
 quanti file ci sono in questa cartella e quanto pesano?
 ```
 
-Se parte `Skill(folder-info)` e ti torna la tabella, il plugin funziona. Puoi anche chiamarla per nome, con il prefisso del plugin, e passarle una cartella:
+oppure
+
+```
+quanto pesa questa cartella, e quali sono i file più grandi?
+```
+
+
+Se parte `Skill(folder-info)` e ti torna la tabella, il plugin funziona.
+Se parte un'altra skill (ad es. `stats` creata in precedenza, significa che bisogna raffinare le descrizioni delle skills ed evitare conflitti).
+
+Puoi anche chiamarla per nome, con il prefisso del plugin, e passarle una cartella:
 
 ```
 /dev-tools:folder-info src
