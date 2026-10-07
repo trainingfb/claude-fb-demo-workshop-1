@@ -9,8 +9,8 @@ Una skill è una cartella con dentro un `SKILL.md`. Nient'altro.
 .claude/skills/nome-della-skill/SKILL.md
 ```
 
-E dentro, nella sua forma più semplice, c'è questo.
-Non serve che tu la faccia davvero ma dagli un'occhiata:
+E dentro, nella sua forma più semplice, troverai una struttura simile.
+(non serve che tu la faccia davvero ma dagli un'occhiata)
 
 ```markdown
 ---
@@ -45,6 +45,10 @@ Al passo 3 hai chiesto due volte «aggiungi un componente», e due volte Claude 
 
 **Soluzione / Prompt:**
 
+Non serve scrivere a mano skills, regole o agenti. Puoi chiedere a Claude farlo (e successivamente rifinirle qualora non andassero bene).
+
+Ad esempio, apri Claude, e chiedigli di creare la seguente skill:
+
 ```
 Scrivi .claude/skills/new-component/SKILL.md: una skill che aggiunge un
 componente alla libreria.
@@ -66,19 +70,23 @@ Massimo quaranta righe. Procedura, non descrizione.
 
 > **Cos'è `allowed-tools`.** È l'elenco degli strumenti che Claude può usare **senza chiederti il permesso** mentre la skill gira. Ogni voce è uno strumento di Claude Code: `Read` legge un file, `Write` ne crea uno, `Edit` lo modifica, `Glob` cerca file per nome, `Grep` cerca testo dentro i file, `Bash` esegue comandi. `Bash(npm run:*)` vuol dire «comandi da terminale, ma solo quelli che cominciano con `npm run`» — è la stessa sintassi dei permessi in `settings.json`.
 >
-> È un'autorizzazione, non un muro: uno strumento fuori dalla lista Claude può ancora usarlo, ma deve chiedertelo. Per questo `check-convenzioni`, fra poco, non avrà né `Write` né `Edit`: deve guardare e riferire, e se provasse a sistemare qualcosa ti comparirebbe una richiesta di permesso — il segnale che sta uscendo dal suo compito. Il muro vero lo incontri al passo 7, con `tools:` di un subagent.
+> È un'autorizzazione, non un muro: uno strumento fuori dalla lista Claude può ancora usarlo, ma deve chiedertelo. Per questo `check-convenzioni`, che farei subito dopo, non avrà né `Write` né `Edit`: deve guardare e riferire, e se provasse a sistemare qualcosa ti comparirebbe una richiesta di permesso — il segnale che sta uscendo dal suo compito. Il muro vero lo incontri al passo 7, con `tools:` di un subagent.
 
-Aprila e leggila tutta. Poi **fermati sul frontmatter in cima** e rileggi la `description` ad alta voce.
+Ad ogni modo apri la skill appena creata in `.claude/skills/new-component/SKILL.md`  e leggila tutta.
+ Poi **fermati sul frontmatter in cima** e rileggi la `description` ad alta voce.
 
 Nota che dice **quando** usarla e con quali parole. 
 E nota che elenca delle frasi vere, quelle che una persona scriverebbe davvero. Se Claude ha scritto una description che descrive la skill invece di dire quando parte, correggila tu: è la riga che conta di più.
 
 ### Provala sul serio
 
-Le skill si caricano all'avvio: riavvia `claude` oppure usa il comando `/reload-skills`.
+Le skill si caricano all'avvio: riavvia `claude` oppure usando il comando `/reload-skills`.
 Poi scrivi una frase normale:
 
-> mi serve un componente Avatar nella libreria
+**Prompt**
+```bash
+Mi serve un componente Avatar nella libreria
+```
 
 **Non scrivere `/new-component`.** Il punto è vedere se parte da sola.
 
@@ -86,11 +94,13 @@ All'inizio delle operazioni di Claude dovresti vedere qualcosa di simile:
 🟢 Skill(new-component)  
 
 
-Guarda cosa fa: apre cinque file, sempre gli stessi, e li tocca tutti. Prova a contarli mentre scorre — è la stessa lista che sta in `CLAUDE.md`, e che a mano si sbaglia sempre nello stesso punto: l'export in `src/components/index.ts`.
+Guarda il report di CLaude per capire cosa ha fatto: dovrebbe aver creato il nuovo componente Avatar e modificato i file `index.ts`, `App.tsx`, `docs/componenti.md` come stabilito dalla skill.
 
 Se non è partita, il problema è la `description`. Riscrivila, riavvia, riprova.
 
-### Oppure chiamala per nome
+---
+
+## Invocare una skill
 
 La frase normale è il modo in cui la userai il più delle volte, ma una skill si può anche lanciare **esplicitamente**, con il nome della cartella preceduto da `/`. Provalo su un secondo componente:
 
@@ -98,11 +108,14 @@ La frase normale è il modo in cui la userai il più delle volte, ma una skill s
 /new-component Tooltip
 ```
 
-Il risultato è lo stesso: i cinque file, `npm run check` alla fine. Cambia solo chi decide che la skill parte — prima Claude, dalla `description`; adesso tu. Usa la `/` quando sai già cosa vuoi e non vuoi lasciare margine: è più veloce e non dipende da come è scritta la `description`.
+Il risultato è simile al precedente.
+ 
+Cambia solo chi decide che la skill parte — prima Claude, dalla `description`; adesso tu. 
+Usa la `/` quando sai già cosa vuoi e non vuoi lasciare margine: è più veloce e non dipende da come è scritta la `description`.
 
 > Digitando `/` in Claude Code compare l'elenco di tutte le skill disponibili, con la loro `description`: è il modo più rapido per vedere cosa c'è nel progetto.
 
-La skill resta, `Avatar` e `Tooltip` no. **Prima** committa la skill, **poi** butta via il resto — nell'ordine inverso `git clean` cancellerebbe anche la skill, che git non conosce ancora:
+La skill resta, `Avatar` e `Tooltip` no: **Prima** committa la skill, **poi** butta via il resto — nell'ordine inverso `git clean` cancellerebbe anche la skill, che git non conosce ancora:
 
 ```bash
 git add .claude/skills && git commit -m "chore: skill new-component"
@@ -121,9 +134,11 @@ git checkout . && git clean -fd
 
 ## La seconda skill, e la progressive disclosure
 
-La seconda serve a **controllare** un componente prima di committarlo: i cinque file ci sono tutti? Le convenzioni sono rispettate?
+La seconda serve a **controllare** un componente prima di committarlo: _ha creato il componente e ha modificato i file corretti? Le convenzioni sono rispettate?_
 
-Ha una forma diversa: **due file** nella stessa cartella. `SKILL.md` resta corto, e i dettagli dei controlli stanno in `regole.md`, che Claude carica solo quando arriva al passo che lo cita. È il modo di tenere una skill leggera senza tenerla superficiale: si chiama *progressive disclosure*.
+Questa skill però ha una forma diversa: **due file** nella stessa cartella.
+
+ `SKILL.md` resta corto, e i dettagli dei controlli stanno in `regole.md`, che Claude carica solo quando arriva al passo che lo cita. È il modo di tenere una skill leggera senza tenerla superficiale: si chiama *progressive disclosure*.
 
 **Soluzione / Prompt:**
 
@@ -168,7 +183,7 @@ I tuoi due file non saranno uguali a quelli di nessun altro: non c'è una versio
 | `SKILL.md`, in fondo | l'output con **committabile** / **da sistemare prima**, così la risposta è una riga e non un saggio |
 | `regole.md` | tre tabelle: i cinque file, le sette convenzioni, le regole di `.claude/rules/` |
 
-Due file nella stessa cartella: il primo corto, il secondo con i dettagli. È la progressive disclosure. Confrontala con `new-component`, che tiene tutto in un file solo perché i passi sono pochi e non c'è niente da rimandare.
+Due file nella stessa cartella: il primo corto, il secondo con i dettagli. È la progressive disclosure. 
 
 Committala:
 
@@ -183,6 +198,8 @@ git add .claude/skills && git commit -m "chore: skill check-convenzioni"
 Per provare questa skill serve qualcosa di rotto. In ogni repo vero c'è un componente che qualcuno ha cominciato e non ha finito: fattene uno.
 
 **Prompt:**
+
+Apri Claude e crea volutamente un componente "rotto":
 
 ```
 Crea il componente Callout, un riquadro di avviso con prop title e
@@ -203,7 +220,21 @@ Adesso riavvia `claude` e prova la skill con una frase normale:
 
 > controlla se i componenti rispettano le convenzioni
 
+Riceverai un'analisi relativamente dettagliata ma soprattutto dovresti vedere un report component per componente in un formato simile (come richiesto dalla skill):
+
+```bash
+Ho controllato tutti e quattro i componenti: tre sono a posto, a Callout mancano tre dei cinque file.
+
+  - Badge ✅
+  - Button ✅
+  - Stack ✅
+  - Callout ⚠️  manca l'esempio, la registrazione in vetrina e la riga nella documentazione
+```
+
 **IMPORTANTE: NON FIXARE I PROBLEMI**. Ne parliamo al prossimo step.
+
+
+### Conclusione
 
 Il report sarà **più lungo di quanto ti aspetti**, ed è normale: la skill passa tutti i componenti contro tutte le regole, e chiude con un verdetto solo. Dentro ci trovi tre tipi di cose:
 

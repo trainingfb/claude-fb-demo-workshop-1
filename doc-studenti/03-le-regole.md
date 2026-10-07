@@ -16,6 +16,8 @@ Se le scrivi dopo, passi il pomeriggio a sistemare.
 
 Apri `CLAUDE.md` — quello del passo 2, con le sezioni «Regole» e «Non fare mai» — e **sostituisci tutto il contenuto** con questo. Le sei righe del passo 2 ci sono ancora, riordinate; in più ci sono i cinque file, le convenzioni della libreria, e un divieto nuovo in fondo:
 
+
+
 ```markdown
 # hello-workshop
 
@@ -50,13 +52,15 @@ Se ne salti uno il progetto compila lo stesso, ed è proprio questo il problema:
 - Non installare librerie di componenti: la UI si scrive a mano.
 - Non far scoprire gli esempi alla vetrina in automatico: la registrazione a mano in `App.tsx` è voluta.
 ```
+
+
+
 La riga sotto il titolo è l'unica descrizione che si concede: una frase, per chi apre il file senza sapere cos'è il progetto. Non di più.
 
 Poi committalo, per lo stesso motivo del passo 2: fra poco guardi cosa ha fatto Claude, e il `CLAUDE.md` non deve stare in mezzo.
 
 ```bash
-git add CLAUDE.md
-git commit -m "docs: i cinque file e le convenzioni"
+git add CLAUDE.md && git commit -m "docs: i cinque file e le convenzioni"
 ```
 
 **Verifica**
@@ -118,8 +122,7 @@ Se qualcosa non ti convince — un nome, un colore, la forma della vetrina — c
 Poi salva:
 
 ```bash
-git add -A
-git commit -m "feat: libreria di componenti con vetrina"
+git add -A && git commit -m "feat: libreria di componenti con vetrina"
 ```
 
 **Verifica**
@@ -133,7 +136,9 @@ git commit -m "feat: libreria di componenti con vetrina"
 
 ## Guarda Claude rispettare regole che non gli hai detto
 
-Adesso la parte che conta. Chiedi, esattamente così:
+Adesso la parte che conta. Chiedi a Claude, esattamente così:
+
+**Prompt**:
 
 > Aggiungi un componente Spinner alla libreria.
 
@@ -157,6 +162,10 @@ Poi buttalo:
 ```bash
 git checkout . && git clean -fd
 ```
+
+> **Cosa fa questo comando.** `git checkout .` annulla le modifiche ai file che git già conosce. `git clean -fd` cancella i file e le cartelle **nuovi**, mai aggiunti con `git add` (`-f` forza la cancellazione, `-d` include le cartelle). Ti servono tutti e due: lo `Spinner` è fatto di file nuovi, ma `index.ts` è un file esistente che è stato modificato.
+>
+> **Attenzione:** `git clean` è irreversibile e cancella anche tutto quello che non hai ancora committato. Per vedere prima cosa verrebbe eliminato, usa `git clean -nd`.
 
 ---
 
@@ -186,7 +195,7 @@ Da qui in poi il test è sempre lo stesso: **guardando il codice, questa regola 
 
 ---
 
-## Dove vanno le tue regole
+# Le regole (rules): dove vanno messe?
 
 Non in `CLAUDE.md`. Vanno nella cartella `.claude/rules/`, che adesso non esiste: la crei tu, e dentro ci metti un file `.md` per argomento. Fra poco ne crei due.
 
@@ -194,7 +203,9 @@ Claude carica **tutti** i file `.md` che trova in `.claude/rules/`, all'avvio di
 
 Perché non scrivere tutto in `CLAUDE.md`, allora? Perché quel file lavora meglio se resta corto: chi lo apre, persona o Claude, ci trova i cinque file e le convenzioni che valgono ovunque. Le regole più specifiche crescono col tempo, e in `.claude/rules/` le tieni **un file per argomento** senza gonfiare la mappa: `testing.md`, `naming.md`, `git.md`. Nel workshop ne scrivi due.
 
-Un file di regole può anche valere **solo per una parte del progetto**. Basta un'intestazione in cima, tra due righe di `---`, con i percorsi a cui si applica:
+Un file di regole può anche valere **solo per una parte del progetto**. 
+
+Basta un'intestazione in cima, tra due righe di `---`, con i percorsi a cui si applica:
 
 ```md
 ---
@@ -215,17 +226,19 @@ Due regole, due file, tutti e due scritti **a mano nell'editor**, non con un pro
 
 ### Regola 1 · `api.md`, vale in tutto il progetto
 
-**Cosa ci va.** La decisione che ti sei segnato guardando lo `Spinner`: quella che Claude ha preso da solo e che avresti preferito trovare già scritta. Se non te ne sei segnata nessuna, scegline una di queste — sono esempi del taglio giusto, non le copiare parola per parola:
+**Cosa dovresti metterci dentro:** La decisione che ti sei segnato guardando lo `Spinner`: quella che Claude ha preso da solo e che avresti preferito trovare già scritta. Se non te ne sei segnata nessuna, scegline una di queste — sono esempi del taglio giusto, non le copiare parola per parola:
 
 - Il contenuto passa sempre dalla prop `children`, mai da una prop `text` o `label`.
 - Ogni prop opzionale ha un valore di default, dichiarato nella firma della funzione.
 - Ogni file `.example.tsx` mostra tutte le varianti del componente, non una sola.
 
-**Come si fa.** Crea la cartella e il file. Si chiama `api.md` perché le regole di questo tipo — come si passa il contenuto, come si dichiarano i default — riguardano l'API dei componenti, cioè come si usano da fuori:
+**Come si fa:** Crea la cartella e il file. Si chiama `api.md` perché le regole di questo tipo — come si passa il contenuto, come si dichiarano i default — riguardano l'API dei componenti, cioè come si usano da fuori:
 
 ```bash
 mkdir -p .claude/rules
 touch .claude/rules/api.md
+
+# oppure crea un file vuoto in .claude/rules/api.md
 ```
 
 Aprilo nell'editor e scrivici la tua regola in questa forma — regola in grassetto, poi mezza frase che dice perché. Questo è un esempio scritto per bene, sul primo dei tre di sopra:
@@ -246,7 +259,7 @@ Se la tua regola è un'altra, cambia la riga ma tieni la forma: una frase che gu
 
 ### Regola 2 · `ui.md`, vale solo dentro `src/components/`
 
-**Cosa ci va.** Una regola che ha senso dentro un componente e da nessun'altra parte. Se non ti viene in mente niente, prendi questa: *l'elemento più esterno di ogni componente ha l'attributo `data-ui` con il nome del componente in minuscolo*. Non cambia il markup né lo stile, si verifica con un grep, e nel DOM dice cosa arriva dalla libreria. La forma però la scrivi tu.
+**Cosa dovresti metterci dentro.** Una regola che ha senso dentro un componente e da nessun'altra parte. Se non ti viene in mente niente, prendi questa: *l'elemento più esterno di ogni componente ha l'attributo `data-ui` con il nome del componente in minuscolo*. Non cambia il markup né lo stile, si verifica con un grep, e nel DOM dice cosa arriva dalla libreria. La forma però la scrivi tu.
 
 **Come si fa.** Un secondo file, `.claude/rules/ui.md`, con in cima l'intestazione dei `paths` fra due righe di `---`, poi la regola nella stessa forma di prima:
 
@@ -288,9 +301,12 @@ Riavvia `claude`, così carica le regole nuove. Poi chiedi un componente, **senz
 
 > Aggiungi un componente Kbd alla libreria, per mostrare un tasto della tastiera.
 
-Dovresti vedere qualcosa di simile:
+Apri il file `src/components/Kbd/Kbd.tsx`: dovresti vedere qualcosa di simile:
 
 ```ts
+import type { ReactNode } from 'react'
+import './Kbd.css'
+
 export interface KbdProps {
   children: ReactNode
 }
@@ -331,7 +347,16 @@ Controlla che sia andata così, nel terminale dei comandi:
 git diff --stat
 ```
 
-Tre file, poche righe. Se ha toccato anche `App.tsx`, i `.css` o `CLAUDE.md`, ha fatto più di quanto chiesto: `git checkout .` e riprova con un prompt più stretto. Se è a posto:
+Tre file, poche righe.
+
+```bash
+ hello-workshop/src/components/Badge/Badge.tsx   | 2 +-
+ hello-workshop/src/components/Button/Button.tsx | 2 +-
+ hello-workshop/src/components/Stack/Stack.tsx   | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+ ```
+
+ Se ha toccato anche `App.tsx`, i `.css` o `CLAUDE.md`, ha fatto più di quanto chiesto: `git checkout .` e riprova con un prompt più stretto. Se è a posto:
 
 ```bash
 npm run check
@@ -355,8 +380,6 @@ Da qui in avanti ogni componente nuovo nasce già a norma, e quelli vecchi lo so
 ---
 
 ## Una regola o una skill?
-
-Te lo chiederai sul tuo repo, quindi tanto vale saperlo adesso.
 
 Una **regola** vale sempre, per qualunque cosa chiedi, e non la lanci mai: sta nel contesto di ogni sessione, quindi occupa posto e deve valerne la pena.
 

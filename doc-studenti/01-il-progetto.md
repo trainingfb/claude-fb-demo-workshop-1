@@ -38,7 +38,7 @@ Serve anche un editor — VS Code, Cursor, WebStorm, quello che usi.
 
 ## Passo 2 · Crea il progetto
 
-Mettiti nella cartella dove tieni i tuoi progetti:
+Mettiti nella cartella dove tieni i tuoi progetti e crea un nuovo progetto React.
 
 ```bash
 npm create vite@latest hello-workshop -- --template react-ts
@@ -53,7 +53,9 @@ Apri <http://localhost:5173>: vedi la pagina di esempio di Vite, con i due loghi
 
 > Se la porta 5173 è occupata Vite ne sceglie un'altra da solo e te la scrive nel terminale. Usa quella segnalata nel terminale.
 
-**Poi mettilo sotto git, subito.** Vite non lo fa per te, e al passo 4 ti serve un punto di partenza da cui misurare cosa cambia. In un **altro** terminale, dentro `hello-workshop`:
+**Poi mettilo sotto git, subito.** Vite non lo fa per te, e al passo 4 ti serve un punto di partenza da cui misurare cosa cambia. 
+
+In un **altro** terminale, dentro `hello-workshop`:
 
 ```bash
 git init
@@ -72,7 +74,7 @@ git commit -m "progetto vuoto"
 
 Killare il processo `npm run dev` con CTRL / CMD + C.
 
-Accedere alla cartella del workshop con `cd hello-workshop`:
+Accedere alla cartella del workshop con `cd hello-workshop` dal tuo editor preferito, ad esempio:
 
 ```bash
 code .        # visual studio code
@@ -115,6 +117,8 @@ Adesso la pagina di esempio di Vite la butti via, e al suo posto ci va una riga 
 
 **Prompt:**
 
+Scrivi il seguente prompt all'interno di Claude Code (puoi fare copia incolla):
+
 ```
 Apri @src/App.tsx: togli tutto il contenuto di esempio di Vite — i due loghi,
 il contatore, lo stato, i link — e lascia solo un <h1>Hello Workshop</h1>.
@@ -131,24 +135,36 @@ La `@` davanti al file non è decorazione: è il modo per dire a Claude *quale* 
 2. **il diff che propone**, in rosso e verde, prima di scrivere qualsiasi cosa
 3. **la richiesta di conferma**, che tu accetti o rifiuti
 
-Se propone di toccare file che non c'entrano, di' di no. Non è un incidente raro, ed è il motivo per cui il diff te lo fa vedere prima.
+Se propone di toccare file che non c'entrano, di' di no.
 
 **Verifica**
 
-- [ ] il browser si è ricaricato da solo e mostra «Hello Workshop»
-- [ ] in `src/App.tsx` non è rimasto niente del contatore
+- [ ] il browser si è ricaricato aggiornando l'applicazione che ora  mostra «Hello Workshop»
+- [ ] in `src/App.tsx` non è rimasto niente della pagina di default che conteneva un contatore
 
 ---
 
-## Passo 5 · Guarda cosa ha fatto davvero
+## Passo 5 · Il terzo terminale
 
-La pagina è giusta, ma non basta. Nel terminale dei comandi, non in quello di Claude:
+La pagina sembra corretta, ma non basta. Verifica ciò che hai modificato prima di pushare tutto sul repo.
+Apri un terzo terminale dei comandi:
 
 ```bash
 git diff --stat
 ```
 
-Ti dice **quanti file ha toccato e quante righe**. Dovrebbe essere `src/App.tsx`, forse anche `src/App.css`, e quasi tutte righe tolte. Qui `git diff` basta perché i file esistevano già nel commit di partenza: quando Claude ne crea di nuovi, `git diff` non li vede e serve `git status`. Lo incontri al passo dopo.
+Ti dice **quanti file ha toccato e quante righe**. Dovrebbe essere `src/App.tsx`, forse anche `src/App.css`, e quasi tutte righe tolte.
+
+Ad esempio, un risultato simile al seguente ti dice che ha modificato un file, 1 riga inserita e 118 cancellate.
+Non vedete modifiche al file `App.css` che invece, almeno nel mio caso, è stato interamente cancellato.
+
+```bash
+ 1 file changed, 1 insertion(+), 118 deletions(-)
+ ```
+
+> per uscire dalla modalità `diff` premere il pulsante `Q` (quit) nel terminale.
+
+ Qui `git diff` basta perché i file esistevano già nel commit di partenza: quando Claude ne crea di nuovi, `git diff` non li vede e serve `git status`. Lo incontri al passo dopo.
 Digita `Q` (quit) per uscire.
 
 Poi guarda il diff per intero:
@@ -157,9 +173,9 @@ Poi guarda il diff per intero:
 git diff
 ```
 
-Se trova roba che non ti aspettavi — un `main.tsx` modificato, un file di configurazione — quello è il momento per accorgersene, non fra tre giorni.
+Se trova roba che non ti aspettavi, adesempio un `main.tsx` modificato, un file di configurazione ecc, quello è il momento per accorgersene, non  fra N giorni.
 
-> **È la sola abitudine che ti porti dietro per tutto il percorso.** Claude sbaglia come sbaglia un collega veloce: raramente, e mai dove guardi. Il `git diff` costa cinque secondi e vale tutto il resto.
+> **È la sola abitudine che ti porti dietro per tutto il percorso.** Claude sbaglia come sbaglia un collega veloce: raramente, ma mai dove guardi. Il `git diff` richiede cinque secondi ed è utilissimo.
 
 Se il diff ti convince, salvalo:
 

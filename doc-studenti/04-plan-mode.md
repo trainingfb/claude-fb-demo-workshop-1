@@ -5,7 +5,11 @@
 
 C'è una modalità in cui Claude **non tocca niente**: legge, ragiona, e ti propone un piano. Approvi tu, e solo allora scrive.
 
+Apri Claude e pulisci il contesto con il comando `/clear`.
+
 Si entra con `/plan`, oppure premendo **shift+tab** finché non compare `plan mode`.
+
+Per tornare alla modalità "normale" (`auto mode`, `manual mode` o `accept edits on`) usa **shift+tab**.
 
 ## Provalo sulla cosa sbagliata
 
@@ -30,15 +34,16 @@ git checkout . && git clean -fd
 
 ## Adesso con il Plan Mode
 
-Entra in plan mode e chiedi la stessa identica cosa.
+Entra in plan mode (`/plan`) e chiedi la stessa identica cosa.
 
+Richiederà un po' di tempo e probabilmente Claude ti farà alcun e domande.
 Stavolta ottieni un piano da leggere prima che esista una riga di codice. 
 Leggi cosa aveva capito (puoi scrollare il terminale di Claude per vederlo tutto) e cosa aveva deciso da solo.
 
 
 **Non approvarlo.** Esci e basta: il tema non ci serve.
 
-## Quando serve davvero
+## Quando usare Plan mode...
 
 Non sempre. Per aggiungere un `Badge` è tempo perso.
 
@@ -60,7 +65,7 @@ Serve quando la cosa da fare tocca più file, o quando non sei sicuro di aver sp
 
 **Elimina le modifiche effettuate**
 
-Il Plan mode non scrive su disco ma qualora lo avessi approvato, assicurati di eliminare tutte le modifiche che potrebe già aver effettuato e tornare al punto di partenza:
+Il Plan mode non scrive su disco ma qualora lo avessi approvato, e successivamente implementato, assicurati di eliminare tutte le modifiche che potrebbe già aver effettuato e di tornare al punto di partenza:
 
 ```bash
 git checkout . && git clean -fd

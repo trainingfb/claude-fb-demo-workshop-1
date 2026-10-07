@@ -3,7 +3,7 @@
 
 # Configurare il progetto: il `CLAUDE.md`
 
-Al passo prima hai dovuto scrivere «non toccare `src/main.tsx`» dentro il prompt. Se non lo scrivevi, poteva toccarlo. E se domani gli chiedi un'altra cosa, devi riscriverlo di nuovo.
+Al passo prima hai dovuto scrivere «non toccare `src/main.tsx`» dentro il prompt. Se non lo scrivevi, poteva toccarlo. E se domani gli chiedi un'altra modifica, devi riscriverlo di nuovo.
 
 Il `CLAUDE.md` serve esattamente a questo: è un file che Claude legge **da solo**, all'inizio di ogni sessione aperta in quella cartella. Quello che c'è scritto lì vale per tutti i messaggi, senza che tu lo ripeta.
 
@@ -14,6 +14,14 @@ Restiamo su `hello-workshop`, lo stesso progetto del passo prima.
 ## Passo 1 · Fallo scrivere a Claude
 
 Nel terminale dove gira `claude`:
+
+Cancella lo storico della sessione corrente:
+
+```
+/clear
+```
+
+E poi digita il comando `init`:
 
 ```
 /init
