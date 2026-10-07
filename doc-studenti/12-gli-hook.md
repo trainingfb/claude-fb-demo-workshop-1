@@ -1,17 +1,20 @@
 > **Passo 12 · 10 minuti · da solo**
 > ← [11 · Il plugin su GitHub](11-plugin-su-github.md) · [indice](../README.md)
 
-# Un hook che non si può ignorare
+# PreToolUse
 
-In `CLAUDE.md`, sotto «Cosa non fare», c'è scritto: *non aggiungere dipendenze senza chiedere*. È una regola: Claude la legge e decide di rispettarla. Quasi sempre lo fa, ma resta una sua decisione. Una regola si chiede.
+In `CLAUDE.md`, sotto «Cosa non fare», c'è scritto: *non aggiungere dipendenze senza chiedere*.
+È una regola: Claude la legge e decide di rispettarla. Quasi sempre lo fa, ma resta una sua decisione. 
 
-Un **hook** si impone. È un comando tuo che Claude Code lancia da solo prima o dopo un'azione, e che può fermarla. Non passa dal modello: succede sempre.
+Una regola si chiede. Un **hook** si impone. È un tuo comando che Claude Code lancia da solo prima o dopo un'azione, e che può fermarla. Non passa dal modello: succede sempre.
 
-**Dove arrivi:** un hook che blocca `npm install <pacchetto>` prima che parta, e Claude che te lo chiede invece di farlo.
+**Goal:** creare un hook che blocca `npm install <pacchetto>` prima che parta, e Claude che te lo chiede invece di farlo.
 
 ## 1. Lo script
 
 Un hook riceve su stdin un JSON con quello che Claude sta per fare e risponde con il codice di uscita: `0` lascia fare, `2` blocca. Quello che scrive su stderr arriva a Claude come motivo.
+
+> **`stdin`** è il canale da cui un programma legge i dati in ingresso: è quello che riceve quando scrivi `qualcosa | programma`. Claude Code lo usa per passare il JSON all'hook, e la prova a mano qui sotto fa lo stesso con `echo … |`.
 
 Crea `.claude/hooks/niente-dipendenze.mjs`. È in Node perché ce l'hai già, e va uguale su Mac, Linux e Windows:
 
@@ -65,7 +68,8 @@ Il primo stampa il messaggio e finisce con `2`, il secondo non stampa niente e f
 
 ## 2. Registralo
 
-Gli hook si dichiarano in `.claude/settings.json`. Il file esiste già: l'ha creato il passo 9 con `--scope project`, e dentro c'è il plugin. Non sostituirlo — **aggiungi** la chiave `hooks` accanto a quelle che ci sono:
+Gli hook si dichiarano in `.claude/settings.json`. Il file esiste già e lo abbiamo creato in precedenza. Dentro c'è gia un plugin.
+Non sostituirlo — **aggiungi** la chiave `hooks` accanto a quelle che ci sono:
 
 ```json
 {
@@ -92,7 +96,7 @@ Tre cose da sapere, e sono tutte qui:
 - **`matcher` è lo strumento**: `Bash` sono i comandi da terminale, `Edit|Write` le modifiche ai file. Distingue maiuscole e minuscole.
 - **`$CLAUDE_PROJECT_DIR` è la radice del progetto**, perché Claude può lanciare comandi da una sottocartella.
 
-`settings.json` si committa, come già fatto al passo 9: l'hook vale per chiunque cloni il repo, esattamente come il plugin. Per un hook solo tuo c'è `settings.local.json`, ignorato da git.
+`settings.json` si committa, come già fatto al passo 9: l'hook vale per chiunque cloni il repo, esattamente come il plugin. Per un hook solo tuo c'è `settings.local.json`, solitamente  ignorato da git.
 
 Per controllare che sia stato letto, nella sessione scrivi `/hooks`: deve elencare `PreToolUse`. Se non compare, chiudi e riapri Claude Code.
 
@@ -104,11 +108,14 @@ Apri Claude e digita questo prompt:
 installa clsx e usalo in Button per comporre le classi
 ```
 
-Claude prova `npm install clsx`, il comando non parte, e Claude riceve il messaggio del tuo script. Con quello sopra ti dice che non può, e ti chiede se vuoi aggiungerla. Non ha obbedito: **non ha potuto**.
+Claude prova `npm install clsx`, il comando non parte, e Claude riceve il messaggio del tuo script: ti dice che non può, e ti chiede se vuoi aggiungerla. Non ha obbedito: **non ha potuto**.
 
 È la differenza con la regola che hai scritto al passo 2, «non aggiungere dipendenze senza chiedere». Lì, insistendo, la dipendenza l'avrebbe aggiunta. Qui no, finché l'hook c'è.
 
-> Un hook che blocca vale anche con i permessi disattivati e per i subagent. È per le cose che non devono succedere **mai**. Per le preferenze restano le regole.
+> Un hook che blocca vale anche con i permessi disattivati e per i subagent. È per le cose che non devono succedere **mai**. Per le preferenze restano invece le regole (rules).
+
+
+# PostToolUse
 
 ## 4. Se vuoi: il linter su ogni file toccato
 
