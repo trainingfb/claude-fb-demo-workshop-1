@@ -68,11 +68,11 @@ La domanda da farsi è una sola: **mi serve vedere i passaggi, o solo la rispost
 
 ---
 
-## L'agente `stats`
+# L'agente `stats`
 
 Crea `.claude/agents/stats.md`: un agente che misura il progetto e riporta i numeri in una tabella — quanti componenti, quante righe di codice, quanti commit, e simili.
 
-Copia la forma dall'auditor e cambia il mestiere. Ma stavolta c'è una differenza che conta.
+Copia la forma dall'auditor e "cambia la sua mansione". Ma stavolta c'è una differenza che conta.
 
 ### I tool: stavolta serve `Bash`
 
@@ -102,7 +102,7 @@ Le due cose da non sbagliare restano le stesse:
 
 ### Soluzione / Prompt
 
-Il prompt, se preferisci farlo scrivere a Claude e poi correggerlo:
+Il prompt per generare l'agente, se preferisci farlo scrivere a Claude e poi correggerlo:
 
 ```
 Scrivi .claude/agents/stats.md, modello @.claude/agents/auditor.md: un subagent che
@@ -120,7 +120,12 @@ indica il comando da usare. Output: solo la tabella, poi una riga con la data.
 Massimo trenta righe.
 ```
 
-Quando lo apri, cerca quattro cose: `tools` con `Bash` dentro, `model: haiku`, la riga che vieta i comandi che scrivono, e una `description` con le tue frasi. Se una manca, aggiungila tu.
+Quando lo apri, cerca quattro cose: 
+* `tools` con `Bash` dentro
+* `model: haiku`
+* una `description` con le tue frasi. Se una manca, aggiungila tu.
+* la riga che vieta i comandi che scrivono,
+
 
 ### Provalo, e verifica due numeri
 
@@ -132,17 +137,25 @@ Riavvia `claude` e chiedi con una frase normale, senza nominarlo:
 com'è messo il progetto in numeri?
 ```
 
+Inizialmente dovresti vedere che l'agente è stato avviato:
+
+```bash
+⏺ stats(Misura il progetto)
+  ⎿  Backgrounded agent 
+```
+
 Ci metterà un minutino o due.
 Ti torna la tabella. Nel frattempo lui ha letto tutti i file e tutta la storia git, e nel tuo contesto è arrivata solo la tabella.
 
-I numeri di un agente si verificano. Due li controlli a mano, nel terminale dei comandi:
+I numeri restituiti da un agente possono (e dovrebbero) essere verificati. 
+Due li puoi verificare a mano, nel terminale dei comandi:
 
 ```bash
-git rev-list --count HEAD           # commit totali
 ls -d src/components/*/ | wc -l     # Totale componenti, ovvero le cartelle in src/components (index.ts escluso)
+git rev-list --count HEAD           # commit totali
 ```
 
-Devono essere identici ai dati della tabella (Commit Totali e Componenti). 
+Devono essere identici ai dati della tabella (`Componenti` e `Commit totali`). 
 Se non tornano, l'agente ha contato male: guarda cosa ha lanciato e stringi le istruzioni.
 
 Poi committa tutti e due:

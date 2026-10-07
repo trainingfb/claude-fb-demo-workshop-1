@@ -6,13 +6,13 @@
 
 Gli agenti si possono lanciare **insieme**. Se due lavori non dipendono l'uno dall'altro, il tempo è quello del più lento, non la somma.
 
-Ma «non dipendono l'uno dall'altro» è una frase da guardare bene. È l'esercizio.
+Ma «non dipendono l'uno dall'altro» è una frase da comprendere bene. È l'esercizio.
 
 ---
 
 ## Lanciali
 
-Parti da un repo pulito (`git status`), poi nel terminale di Claude, una frase sola:
+Parti da un repo pulito (`git status` con `nothing to commit`), poi nel terminale di Claude, una frase sola:
 
 **Prompt:**
 
@@ -27,18 +27,20 @@ Guardali partire insieme: due `Agent(…)` uno sotto l'altro, che lavorano nello
 
 ## Controlla
 
-Non a occhio: con gli strumenti che hai costruito.
+Aspetta che i tuoi agenti finiscano il lavoro in background. Ci vorrà qualche minuto.
 
-**Controllo visuale**
+Dopo puoi verificare con gli strumenti che hai costruito:
+
+1. **Controllo visuale**
 Apri la vetrina nel browser (http://localhost:5173): `Avatar` e `Tooltip` devono esserci tutti e due.
 
-**Controllo automatico**
+2. **Controllo automatico**
 
 ```bash
 npm run check
 ```
 
-Poi, a Claude:
+3. Poi, a Claude:
 
 **Prompt:**
 
